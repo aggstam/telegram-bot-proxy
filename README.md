@@ -11,8 +11,11 @@ which will contain the sus bot, similar to how you would firejail a program to n
 while its running. That way you can rest assure, the bot only reads command prompt messages and nothing else,
 giving you the juicy alpha you so desire.
 
-Since telegram bots can't read each other messages, you are required to create an API ID and HASH for your(or a random)
+Since telegram bots can't read each others messages, you are required to create an API ID and HASH for your(or a random)
 account, to use with this setup, following the official docs: https://core.telegram.org/api/obtaining_api_id#obtaining-api-id
+To setup the proxy, you also need to create a new group, that will contain the sus bots, and grab both that group and your
+main group IDs, to use in the configuration. Your user must exist in both groups so your proxy can "forward" the messages
+bettween them. The proxy only forwards messages using the prompt prefix `/p`.
 
 After you obtained your key, you can configure the proxy by simply editting the Makefile with your config options
 | Config         | Description                                                            |
@@ -45,3 +48,7 @@ After that, you can modify the configuration and start the proxy:
 ```
 % make deploy
 ```
+After the proxy is up and running, you can verify it's working by
+sending a prompt using the `/p` prefix, like `/p /c btc`.
+You should see your account posting the message `/c btc` in the bots jail group
+and after the bot respond the message should be forwarded back to your main group.
