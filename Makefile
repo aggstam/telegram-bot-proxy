@@ -27,6 +27,7 @@ clean:
 	rm -rf $(DB_PATH) $(VENV) $(PYCACHE)
 
 deploy:
-	python bot.py $(API_ID) $(API_HASH) $(PHONE) $(DB_PASS) $(DB_PATH) $(GROUP_ID) $(BOTS_GROUP_ID)
+	python proxy.py $(API_ID) $(API_HASH) $(PHONE) $(DB_PASS) $(DB_PATH) $(GROUP_ID) $(BOTS_GROUP_ID)
 
 .PHONY: all bootstrap clean deploy
+.SILENT: deploy

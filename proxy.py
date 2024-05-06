@@ -21,29 +21,30 @@ def main():
     tg.login()
 
     # Define proxy handler
-    def proxy(update):
-        # Check message comes from the actual group
+    def proxy_handler(update):
+        # Check message comes from the actual groups
         if update['message']['chat_id'] == group_id:
             # Check if its the proxy command
             message_text = update['message']['content'].get('text', {}).get('text', '').lower()
             if message_text.startswith('/p'):
-                tg.send_message(chat_id=bots_group_id, text=message_text[3:])
-
-    # Define response handler
-    def response_handler(update):
-        # Check message comes from the bots group
-        if update['message']['chat_id'] == bots_group_id and not update['message']['is_outgoing']:
+                send_message_result = tg.send_message(chat_id=bots_group_id, text=message_text[3:])
+                send_message_result.wait()
+                if send_message_result.error:
+                    print(f'Failed to send the message: {send_message_result.error_info}')
+        elif update['message']['chat_id'] == bots_group_id and not update['message']['is_outgoing']:
             data = {
                 'chat_id': group_id,
                 'from_chat_id': bots_group_id,
                 'message_ids': [update['message']['id']],
                 'send_copy': True,
             }
-            tg.call_method(method_name='forwardMessages', params=data, block=True)
+            call_method_result = tg.call_method(method_name='forwardMessages', params=data, block=True)
+            call_method_result.wait()
+            if call_method_result.error:
+                print(f'Failed to forward the message: {call_method_result.error_info}')
 
-    # Append handlers
-    tg.add_message_handler(proxy)
-    tg.add_message_handler(response_handler)
+    # Append handler
+    tg.add_message_handler(proxy_handler)
 
     # Wait for termination
     tg.idle()
