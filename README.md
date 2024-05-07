@@ -35,10 +35,21 @@ Script provides the following Make targets:
 | `clean`     | Remove build artifacts                  |
 | `deploy`    | Start the proxy using the configuration |
 
-Before first usage, you have to grab all the required dependencies:
+### Environment setup
+The following OS dependencies are required:
+|   Dependency   |
+|----------------|
+| git            |
+| make           |
+| python         |
+| python-venv    |
+| libssl1.1      |
+
+Before first usage, you have to grab all the required python libraries:
 ```
 % make bootstrap
 ```
+### Execution
 Since we are using a `python` virtual environment, we have to source
 it before starting the proxy:
 ```
