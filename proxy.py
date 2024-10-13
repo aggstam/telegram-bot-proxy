@@ -12,6 +12,7 @@ def main():
     db_path = sys.argv[5]
     group_id = int(sys.argv[6])
     bots_group_id = int(sys.argv[7])
+    vault_address = sys.argv[8]
     tg = Telegram(
         api_id=api_id,
         api_hash=api_hash,
@@ -56,7 +57,7 @@ def main():
         }
         data = {
             "type": "",
-            "user": "0x05ce3c3d5f66906a04dc5111c8ceda49e74df43a"
+            "user": vault_address
         }
         if command == "vault":
             data["type"]= "clearinghouseState"
