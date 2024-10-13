@@ -50,15 +50,16 @@ def main():
             if call_method_result.error:
                 print(f'Failed to forward the message: {call_method_result.error_info}')
     def handle_hl(command):
+        url = "https://api.hyperliquid.xyz/info"
+        headers = {
+            "Content-Type": "application/json"
+        }
+        data = {
+            "type": "",
+            "user": "0x05ce3c3d5f66906a04dc5111c8ceda49e74df43a"
+        }
         if command == "vault":
-            url = "https://api.hyperliquid.xyz/info"
-            headers = {
-                "Content-Type": "application/json"
-            }
-            data = {
-                "type": "clearinghouseState",
-                "user": "0x05ce3c3d5f66906a04dc5111c8ceda49e74df43a"
-            }
+            data["type"]= "clearinghouseState"
             response = requests.post(url, json=data, headers=headers)
             # Check if the request was successful
             if response.status_code == 200:
