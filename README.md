@@ -17,15 +17,19 @@ To setup the proxy, you also need to create a new group, that will contain the s
 main group IDs, to use in the configuration. Your user must exist in both groups so your proxy can "forward" the messages
 bettween them. The proxy only forwards messages using the prompt prefix `/p`.
 
+We have integrated some [Hyperliquid](https://hyperliquid.xyz/) functionality into the proxy bot, which can be triggered by
+using the `/hl` prompt prefix. If you don't want that, simply drop the relevant code.
+
 After you obtained your key, you can configure the proxy by simply editting the Makefile with your config options
-| Config         | Description                                                            |
-|----------------|------------------------------------------------------------------------|
-| `API_ID`       | Your API key, provided by `telegram`                                   |
-| `API_HASH`     | Your API hash, provided by `telegram`                                  |
-| `PHONE`        | Your `telegram` account phone number                                   |
-| `DB_PASS`      | Password used to encrypt the account information                       |
-| `GROUP_ID`     | The `tg` group you want to protect from sniffers                       |
-| `BOTS_GROUP_ID`| The `tg` group you want to dump all the trash bots and protect against |
+| Config            | Description                                                            |
+|-------------------|------------------------------------------------------------------------|
+| `API_ID`          | Your API key, provided by `telegram`                                   |
+| `API_HASH`        | Your API hash, provided by `telegram`                                  |
+| `PHONE`           | Your `telegram` account phone number                                   |
+| `DB_PASS`         | Password used to encrypt the account information                       |
+| `GROUP_ID`        | The `tg` group you want to protect from sniffers                       |
+| `BOTS_GROUP_ID`   | The `tg` group you want to dump all the trash bots and protect against |
+| `HL_DEFAULT_VAULT`| The default `Hyperliquid` vault address to retrieve information for    |
 
 ## Usage
 Script provides the following Make targets:

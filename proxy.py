@@ -1,5 +1,26 @@
+# --------------------------------------------------------------------------
+#
+# Self hosting proxy for sending prompts and grabbing responses from telegram bots.
+#
+# Author: Aggelos Stamatiou, July 2022
+#
+# This source code is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This software is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this source code. If not, see <http://www.gnu.org/licenses/>.
+# --------------------------------------------------------------------------
+
 import sys
 from telegram.client import Telegram
+from hl import hl_handle_command
 
 # Main function
 def main():
@@ -11,6 +32,7 @@ def main():
     db_path = sys.argv[5]
     group_id = int(sys.argv[6])
     bots_group_id = int(sys.argv[7])
+    hl_default_vault = sys.argv[8]
     tg = Telegram(
         api_id=api_id,
         api_hash=api_hash,
@@ -28,6 +50,15 @@ def main():
             message_text = update['message']['content'].get('text', {}).get('text', '').lower()
             if message_text.startswith('/p'):
                 send_message_result = tg.send_message(chat_id=bots_group_id, text=message_text[3:])
+                send_message_result.wait()
+                if send_message_result.error:
+                    print(f'Failed to send the message: {send_message_result.error_info}')
+            elif message_text.startswith('/hl'):
+                try:
+                    hl_output = hl_handle_command(message_text[4:], hl_default_vault)
+                except Exception as error:
+                    hl_output = f'Hyperliquid error: {error}'
+                send_message_result = tg.send_message(chat_id=group_id, text=hl_output)
                 send_message_result.wait()
                 if send_message_result.error:
                     print(f'Failed to send the message: {send_message_result.error_info}')
@@ -49,5 +80,5 @@ def main():
     # Wait for termination
     tg.idle()
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

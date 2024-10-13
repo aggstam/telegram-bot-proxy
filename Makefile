@@ -11,6 +11,7 @@ DB_PASS = {YOUR_DB_PASS}
 DB_PATH = $(REPO_PATH)/db
 GROUP_ID = {YOUR_GROUP_ID}
 BOTS_GROUP_ID = {YOUR_BOTS_GROUP_ID}
+HL_DEFAULT_VAULT = {YOUR_HYPERLIQUID_VAULT_ADDRESS}
 
 all: deploy
 
@@ -27,7 +28,7 @@ clean:
 	rm -rf $(DB_PATH) $(VENV) $(PYCACHE)
 
 deploy:
-	python proxy.py $(API_ID) $(API_HASH) $(PHONE) $(DB_PASS) $(DB_PATH) $(GROUP_ID) $(BOTS_GROUP_ID)
+	python proxy.py $(API_ID) $(API_HASH) $(PHONE) $(DB_PASS) $(DB_PATH) $(GROUP_ID) $(BOTS_GROUP_ID) $(HL_DEFAULT_VAULT)
 
 .PHONY: all bootstrap clean deploy
 .SILENT: deploy
