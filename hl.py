@@ -31,33 +31,38 @@ def hl_vault_info(address=str):
     # Format retrieved data
     account_value = float(data['marginSummary']['accountValue'])
     total_margin_used = float(data['marginSummary']['totalMarginUsed'])
-    position = data['assetPositions'][0]['position']
+    total_positions = len(data['assetPositions'])
 
     message = f'🚀 Trading Account Update 🚀\n\n'
     message += f'💰 Account Value: ${account_value:,.2f}\n'
     message += f'💼 Total Margin Used: ${total_margin_used:,.2f}\n'
-    message += f'Margin Usage: {total_margin_used/account_value:.2%}\n\n'
+    message += f'Margin Usage: {total_margin_used/account_value:.2%}\n'
+    message += f'Total positions: {total_positions}\n\n'
 
-    message += '📊 Position Details:\n'
-    message += f'Coin: {position['coin']}\n'
-    message += f'Size: {float(position['szi']):,.0f} coins\n'
-    message += f'Entry Price: ${float(position['entryPx']):,.6f}\n'
-    message += f'Position Value: ${float(position['positionValue']):,.2f}\n'
+    # Parse vault positions
+    for position in data['assetPositions']:
+        position = position['position']
+        message += '📊 Position Details:\n'
+        message += f'Coin: {position['coin']}\n'
+        message += f'Size: {float(position['szi']):,.0f} coins\n'
+        message += f'Entry Price: ${float(position['entryPx']):,.6f}\n'
+        message += f'Position Value: ${float(position['positionValue']):,.2f}\n'
 
-    unrealized_pnl = float(position['unrealizedPnl'])
-    message += f'Unrealized P&L: ${unrealized_pnl:,.2f}'
-    if unrealized_pnl > 0:
-        message += ' 📈\n'
-    else:
-        message += ' 📉\n'
+        unrealized_pnl = float(position['unrealizedPnl'])
+        message += f'Unrealized P&L: ${unrealized_pnl:,.2f}'
+        if unrealized_pnl > 0:
+            message += ' 📈\n'
+        else:
+            message += ' 📉\n'
 
-    message += f'Liquidation Price: ${float(position['liquidationPx']):,.6f}\n'
-    message += f'Max Leverage: {position['maxLeverage']}x\n\n'
+        message += f'Liquidation Price: ${float(position['liquidationPx']):,.6f}\n'
+        message += f'Max Leverage: {position['maxLeverage']}x\n\n'
 
-    cumulative_funding = position['cumFunding']
-    message += '💸 Cumulative Funding:\n'
-    message += f'All Time: ${float(cumulative_funding['allTime']):,.2f}\n'
-    message += f'Since Open: ${float(cumulative_funding['sinceOpen']):,.2f}'
+        cumulative_funding = position['cumFunding']
+        message += '💸 Cumulative Funding:\n'
+        message += f'All Time: ${float(cumulative_funding['allTime']):,.2f}\n'
+        message += f'Since Open: ${float(cumulative_funding['sinceOpen']):,.2f}'
+
     return message
 
 # Parse provided string into an HL command and its parts, then execute it and return its output.
