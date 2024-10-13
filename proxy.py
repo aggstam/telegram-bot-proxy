@@ -1,4 +1,5 @@
 import sys
+import requests
 from telegram.client import Telegram
 
 # Main function
