@@ -61,7 +61,7 @@ def hl_vault_info(address=str):
         cumulative_funding = position['cumFunding']
         message += '💸 Cumulative Funding:\n'
         message += f'All Time: ${float(cumulative_funding['allTime']):,.2f}\n'
-        message += f'Since Open: ${float(cumulative_funding['sinceOpen']):,.2f}'
+        message += f'Since Open: ${float(cumulative_funding['sinceOpen']):,.2f}\n\n'
 
     return message
 
