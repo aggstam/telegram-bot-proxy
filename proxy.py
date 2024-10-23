@@ -2,7 +2,7 @@
 #
 # Self hosting proxy for sending prompts and grabbing responses from telegram bots.
 #
-# Author: Aggelos Stamatiou, July 2022
+# Author: Aggelos Stamatiou, May 2024
 #
 # This source code is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
