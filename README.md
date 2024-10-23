@@ -17,7 +17,7 @@ To setup the proxy, you also need to create a new group, that will contain the s
 main group IDs, to use in the configuration. Your user must exist in both groups so your proxy can "forward" the messages
 bettween them. The proxy only forwards messages using the prompt prefix `/p`.
 
-After you obtained your key, you can configure the proxy by simply editting the Makefile with your config options
+After you obtained your key, you can configure the proxy by simply editting the Makefile with your config options:
 | Config         | Description                                                            |
 |----------------|------------------------------------------------------------------------|
 | `API_ID`       | Your API key, provided by `telegram`                                   |
