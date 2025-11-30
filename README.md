@@ -46,18 +46,18 @@ The following OS dependencies are required:
 | libssl1.1      |
 
 Before first usage, you have to grab all the required python libraries:
-```
-% make bootstrap
+```shell
+$ make bootstrap
 ```
 ### Execution
 Since we are using a `python` virtual environment, we have to source
 it before starting the proxy:
-```
-% . {FULL_PATH_REPO}/venv/bin/activate
+```shell
+$ . {FULL_PATH_REPO}/venv/bin/activate
 ```
 After that, you can modify the configuration and start the proxy:
-```
-% make deploy
+```shell
+$ make deploy
 ```
 After the proxy is up and running, you can verify it's working by
 sending a prompt using the `/p` prefix, like `/p /c btc`.
